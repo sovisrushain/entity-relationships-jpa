@@ -21,24 +21,24 @@ public class Employee implements Serializable {
     @OneToOne(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Spouse spouse;
 
-    public Employee(String id, String name, String address) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
-
-    public Employee(String id, String name, String address, Spouse spouse) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.spouse = spouse;
-        this.spouse.setEmployee(this);
-    }
-
-    public void setSpouse(Spouse spouse) {
-        spouse.setEmployee(this);
-        this.spouse = spouse;
-    }
+//    public Employee(String id, String name, String address) {
+//        this.id = id;
+//        this.name = name;
+//        this.address = address;
+//    }
+//
+//    public Employee(String id, String name, String address, Spouse spouse) {
+//        this.id = id;
+//        this.name = name;
+//        this.address = address;
+//        this.spouse = spouse;
+//        this.spouse.setEmployee(this);
+//    }
+//
+//    public void setSpouse(Spouse spouse) {
+//        spouse.setEmployee(this);
+//        this.spouse = spouse;
+//    }
 
 
 }
