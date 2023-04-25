@@ -1,8 +1,8 @@
-# Hibernate | JPA - Relationships
+# JPA - Relationships
 
 ### 01. One to One Relationship - Total Participation
 
-![Screenshot from 2022-07-12 23-26-16.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-12_23-26-16.png)
+![Screenshot from 2022-07-12 23-26-16.png](resources/Screenshot_from_2022-07-12_23-26-16.png)
 
 **Spouse**
 
@@ -76,7 +76,7 @@ We don’t override toString() in inverse end.
 
 **When there are no attributes be part of associate entity**
 
-![Screenshot from 2022-07-13 15-06-42.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-13_15-06-42.png)
+![Screenshot from 2022-07-13 15-06-42.png](resources/Screenshot_from_2022-07-13_15-06-42.png)
 
 **Vehicle**
 
@@ -153,7 +153,7 @@ public class Employee implements Serializable {
 
 **Decompose:** **When there are attributes be part of associate entity**
 
-![Screenshot from 2022-07-15 15-33-40.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-15_15-33-40.png)
+![Screenshot from 2022-07-15 15-33-40.png](resources/Screenshot_from_2022-07-15_15-33-40.png)
 
 **Employee2**
 
@@ -255,7 +255,7 @@ public class Vehicle2Employee2PK implements Serializable {
 
 ### 03. One to Many Relationship - Total Participation
 
-![Screenshot from 2022-07-15 20-35-26.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-15_20-35-26.png)
+![Screenshot from 2022-07-15 20-35-26.png](resources/Screenshot_from_2022-07-15_20-35-26.png)
 
 **Order**
 
@@ -325,7 +325,7 @@ public class Customer implements Serializable {
 
 **When there are no attributes be part of associate entity**
 
-![Screenshot from 2022-07-16 00-08-43.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-16_00-08-43.png)
+![Screenshot from 2022-07-16 00-08-43.png](resources/Screenshot_from_2022-07-16_00-08-43.png)
 
 **Order2**
 
@@ -405,7 +405,7 @@ public class Customer2 implements Serializable {
 
 **Decompose:** **When there are attributes be part of associate entity**
 
-![Screenshot from 2022-07-17 15-49-39.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-17_15-49-39.png)
+![Screenshot from 2022-07-17 15-49-39.png](resources/Screenshot_from_2022-07-17_15-49-39.png)
 
 **ClassStudent**
 
@@ -538,7 +538,7 @@ public class Student implements Serializable {
 
 **When there are no attributes be part of associate entity**
 
-![Screenshot from 2022-07-17 17-38-37.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-17_17-38-37.png)
+![Screenshot from 2022-07-17 17-38-37.png](resources/Screenshot_from_2022-07-17_17-38-37.png)
 
 **Actor**
 
@@ -620,7 +620,7 @@ public class Movie implements Serializable {
 
 **Decompose:** **When there are attributes be part of associate entity**
 
-![Screenshot from 2022-07-18 11-57-50.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-18_11-57-50.png)
+![Screenshot from 2022-07-18 11-57-50.png](resources/Screenshot_from_2022-07-18_11-57-50.png)
 
 **Bill**
 
@@ -743,137 +743,4 @@ public class BillDetail implements Serializable {
         this.unitPrice = unitPrice;
     }
 }
-```
-
-## Queries
-
-![Screenshot from 2022-07-18 12-44-02.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-18_12-44-02.png)
-
-JPQL
-
-- SELECT
-- UPDATE
-- DELETE
-
-HQL
-
-- SELECT
-- UPDATE
-- DELETE
-- INSERT INTO …SELECT
-
-![Screenshot from 2022-07-18 12-49-41.png](Hibernate%20JPA%208f712c92967e40239e0eed24e5ddc8f1/Screenshot_from_2022-07-18_12-49-41.png)
-
-**Retrieve multiple records**
-
-```java
-NativeQuery nativeQuery = session.createNativeQuery("SELECT * FROM customer");
-nativeQuery.addEntity(Customer.class);
-List<Customer> list = nativeQuery.list();
-
-/* Native Hibernate API */
-NativeQuery<Customer> nativeQuery = session.createNativeQuery("SELECT * FROM customer", Customer.class);
-List<Customer> list = nativeQuery.list();
-
-/* JPA API */
-Query nativeQueryInJPA = session.createNativeQuery("SELECT * FROM customer", Customer.class);
-List<Customer> list = nativeQueryInJPA.getResultList();
-```
-
-**Retrieve a single Record**
-
-```java
-NativeQuery query1 = session.createNativeQuery("SELECT * FROM customer WHERE id='C001'");
-Object[] customer1 = (Object[]) query1.uniqueResult();
-
-/* Native Hibernate API (NativeQuery<T>), JPA API (Query) */
-NativeQuery<Customer> query2 = session.createNativeQuery("SELECT * FROM customer WHERE id='C001'", Customer.class);
-Customer customer2 = query2.uniqueResult(); // getSingleResult()
-
-/* Native Hibernate API */
-NativeQuery query3 = session.createNativeQuery("SELECT * FROM customer WHERE id='C001'");
-query3.addEntity(Customer.class);
-Customer customer3 = (Customer) query3.getSingleResult();
-
-/* Native Hibernate API */
-NativeQuery<Customer> query4 = session.createNativeQuery("SELECT * FROM customer WHERE id='C001'").addEntity(Customer.class);
-Customer customer4 = query4.getSingleResult();
-```
-
-**Parameterized Query**
-
-positional parameters `?1`
-
-named parameters `:id`
-
-```java
-NativeQuery<Customer> query1 = session.createNativeQuery("SELECT * FROM customer WHERE id=?1", Customer.class);
-query1.setParameter(1, "C001");
-Customer customer1 = query1.getSingleResult();
-
-NativeQuery<Customer> query2 = session.createNativeQuery("SELECT * FROM customer WHERE id=:abc", Customer.class);
-query2.setParameter("abc", "C002" );
-Customer customer2 = query2.uniqueResult();
-```
-
-**Insert Records**
-
-```java
-NativeQuery query = session.createNativeQuery("INSERT INTO customer (id, name, address) VALUES (:id, :name, :address)");
-query.setParameter("id", "C004");
-query.setParameter("name", "Aruni");
-query.setParameter("address", "Matara");
-int affectedRows = query.executeUpdate();
-```
-
-**Update Records**
-
-```java
-int affectedRows = session.createQuery("UPDATE com.cisco.entity.Customer C SET C.name=?1 WHERE C.id=?2")
-.setParameter(1, "Aruni Dissanayake")
-.setParameter(2, "C004")
-.executeUpdate();
-```
-
-**Delete Records**
-
-```java
-int affectedRows = session.createQuery("DELETE FROM com.cisco.entity.Customer c WHERE c.id=?1")
-.setParameter(1, "C003")
-.executeUpdate();
-```
-
-**Insert a Record**
-
-```java
-// JPQL
-List<Customer> customers = session.createQuery("SELECT c FROM Customer c", Customer.class).list();
-
-// HQL
-List<Customer> customers2 = session.createQuery("FROM Customer c", Customer.class).list();
-
-List<String> names = session.createQuery("SELECT c.name FROM Customer c", String.class).list();
-            
-List<Detail> details = session.createQuery("SELECT new lk.ijse.dep7.Detail(c.name, c.address) FROM Customer c").list();
-         
-List<Detail> details2 = session.createNativeQuery("SELECT c.name, c.address FROM customer c")
-                    .setResultTransformer(Transformers.aliasToBean(Detail.class)).list();
-
-```
-
-**Insert Into Select**
-
-```java
-int affectedRows = session.createQuery("INSERT INTO Customer (id, name, address) SELECT s.id, s.name, s.address FROM Student s").executeUpdate();
-```
-
-**Joins**
-
-```java
-// HQL
-List<CustomEntity> employeeDetailList = session.createNativeQuery("SELECT e.id, e.name, e.address, s.name as spouseName FROM employee e INNER JOIN spouse s on e.id = s.employee_id")
-                            .setResultTransformer(Transformers.aliasToBean(CustomEntity.class)).list();
-
-// JPQL
-List<CustomEntity> employeeDetailList = session.createQuery("SELECT new lk.ijse.dep7.entity.CustomEntity(e.id, e.name, e.address, s.name) FROM Spouse s INNER JOIN s.employee e").list()
 ```
