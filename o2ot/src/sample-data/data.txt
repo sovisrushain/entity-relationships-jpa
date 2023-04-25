@@ -1,0 +1,20 @@
+[
+    {
+        "id": "E001",
+        "name": "Harry",
+        "address": "London",
+        "spouse": {
+            "id": "S001",
+            "name": "Mary"
+        }
+    },
+        {
+        "id": "E002",
+        "name": "Kevin",
+        "address": "Manchester",
+        "spouse": {
+            "id": "S002",
+            "name": "Ruth"
+        }
+    }
+]
