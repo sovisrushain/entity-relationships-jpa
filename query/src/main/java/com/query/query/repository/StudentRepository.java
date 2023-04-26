@@ -9,4 +9,7 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student s WHERE s.marks > 3.6")
     List<Student> findAllFirstClassStudents();
+
+    @Query("SELECT s FROM Student s WHERE s.marks < ?1")
+    List<Student> findSpecific(String marks);
 }

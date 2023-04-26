@@ -26,9 +26,21 @@ public class StudentController {
         return "Saved";
     }
 
-    @GetMapping
+    @GetMapping("/first-class")
     public ResponseEntity<List<Student>> getAllFirstClassStudents() {
         List<Student> list = studentRepository.findAllFirstClassStudents();
+        return new ResponseEntity<>(list, HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> list = studentRepository.findAll();
+        return new ResponseEntity<>(list, HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/{marks}")
+    public ResponseEntity<List<Student>> findSpecificSet(@PathVariable String marks) {
+        List<Student> list = studentRepository.findSpecific(marks);
         return new ResponseEntity<>(list, HttpStatusCode.valueOf(200));
     }
 }
